@@ -17,13 +17,17 @@ q_r.loadModel()
 app = Flask(__name__)
 
 # allow both GET and POST requests
-@app.route('/Get/Response', methods=['GET', 'POST'])
+@app.route('/get/response', methods=['GET', 'POST'])
 def form_example():
     # handle the POST request
     if request.method == 'POST':
-        context = request.form.get('context')
-        question = request.form.get('question')
-        return jsonify({'message_text': request.form.get('question'), 'response': q_r.predict(context, question)})
+        data = request.json
+        context = data['context']
+        question = data['question']
+        #context = request.args.get('context')
+        #question = request.args.get('question')
+        print(' context = ', context, ' question=', question, 'response', q_r.predict(context, question) )
+        return jsonify({'message_text': data['question'], 'response': q_r.predict(context, question)})
     else:
         return jsonify({'message_text': request.form.get('question') , 'response': "eurreur"})
 
@@ -33,7 +37,7 @@ def form_example():
 """test avec du score et sentiment"""
 
 # allow both GET and POST requests
-@app.route('/Get/Response+Answer', methods=['GET', 'POST'])
+@app.route('/get/response+Answer', methods=['GET', 'POST'])
 def form_example1():
     # handle the POST request
     if request.method == 'POST':
