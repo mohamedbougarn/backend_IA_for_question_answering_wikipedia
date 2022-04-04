@@ -1,5 +1,6 @@
 #importation les méthode dans la page test1
 from API_Context_q_r.camombert_q_r__init__ import Q_R
+from GPT3_Q_A.gpt3 import GPT3
 # import main Flask class and request object
 from flask import Flask, request, jsonify
 
@@ -11,6 +12,10 @@ from flask import Flask, request, jsonify
 q_r = Q_R()
 q_r.loadModel()
 
+
+#get gpt3 q
+gpt3 = GPT3()
+#gpt3.get_gpt3aq()
 
 
 # create the Flask app
@@ -26,10 +31,11 @@ def form_example():
         question = data['question']
         #context = request.args.get('context')
         #question = request.args.get('question')
-        print(' context = ', context, ' question=', question, 'response', q_r.predict(context, question) )
-        return jsonify({'message_text': data['question'], 'response': q_r.predict(context, question)})
+        response = q_r.predict(context, question)
+        print(' context = ', context, ' question=', question, 'response', response )
+        return jsonify({'message_text': data['question'], 'response': response})
     else:
-        return jsonify({'message_text': request.form.get('question') , 'response': "eurreur"})
+        return jsonify({'message_text': data['question'], 'response': "eurreur"})
 
 
 
@@ -57,6 +63,29 @@ def form_example1():
                         'response': 0,
                         'score':0})
 
+
+
+#todo define : a root /get/gpt3 with method post
+# that send a ansewer respence and get a question request in gpt3
+
+# allow both GET and POST requests
+@app.route('/get/gpt3', methods=['GET', 'POST'])
+def getgpt3():
+    # handle the POST request
+    if request.method == 'POST':
+        #context = request.form.get('context')
+        question = request.form.get('question')
+        answer = gpt3.get_gpt3aq(question)
+        #response = q_r.predict(context,question)
+        #score = q_r.compute_f1(response,answer)
+
+        return jsonify({'message': question,
+                        'response': answer
+                        })
+    else:
+        return jsonify({'message_text': question,
+                        'response': 0
+                        })
 
 
 
