@@ -2,7 +2,7 @@ import os
 import openai
 
 
-api="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"
+api="****************************************"
 
 
 
