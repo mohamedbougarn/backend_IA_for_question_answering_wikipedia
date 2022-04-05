@@ -2,7 +2,7 @@ import os
 import openai
 
 
-api="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"
+api=""
 
 
 
@@ -16,7 +16,7 @@ class GPT3:
 
     #todo define :method that use GPT3 for questin responce in CLASS named GPT3
     def get_gpt3aq(self,text):
-        openai.api_key="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"
+        openai.api_key=api
 
         start_sequence = "\nA:"
         restart_sequence = "\n\nQ: "
