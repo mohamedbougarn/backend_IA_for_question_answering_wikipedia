@@ -15,6 +15,7 @@ q_r.loadModel()
 
 #get gpt3 q
 gpt3 = GPT3()
+gpt3.connect()
 #gpt3.get_gpt3aq()
 
 
@@ -103,6 +104,7 @@ def getgpt3_translate():
         translated = gpt3.get_gpt3_translate(text,language)
         #response = q_r.predict(context,question)
         #score = q_r.compute_f1(response,answer)
+
 
         return jsonify({'text': text,
                         'language': language,
