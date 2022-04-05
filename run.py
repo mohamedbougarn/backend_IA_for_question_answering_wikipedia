@@ -89,6 +89,34 @@ def getgpt3():
 
 
 
+#todo define : a root /translate/gpt3 with method post
+# that send a ansewer respence and get a question request in gpt3
+
+# allow both GET and POST requests
+@app.route('/translate/gpt3', methods=['GET', 'POST'])
+def getgpt3_translate():
+    # handle the POST request
+    if request.method == 'POST':
+        #context = request.form.get('context')
+        text = request.form.get('text')
+        language = request.form.get('language')
+        translated = gpt3.get_gpt3_translate(text,language)
+        #response = q_r.predict(context,question)
+        #score = q_r.compute_f1(response,answer)
+
+        return jsonify({'text': text,
+                        'language': language,
+                        'translated': translated
+                        })
+    else:
+        return jsonify({'text': text,
+                        'language': language,
+                        'translated': 0
+                        })
+
+
+
+
 @app.route('/json-example')
 def json_example():
     return 'JSON Object Example'
