@@ -16,7 +16,7 @@ class GPT3:
 
     #todo define 1 : method for connecting api
     def connect(self):
-        with open('API_KEY.json') as file:
+        with open('./API_KEY.json') as file:
             data = json.load(file)
 
         openai.api_key = data["API"]
@@ -59,3 +59,9 @@ class GPT3:
         content = response.choices[0].text.split('.')
         # print(content)
         return response.choices[0].text
+
+
+
+    #todo define : methode for translate with google
+
+    #todo define :  methode for detection language

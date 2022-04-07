@@ -9,15 +9,17 @@ from transformers import CamembertTokenizer
 
 # Definire tokenizer de bert
 #tokenizer = AutoTokenizer.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
-model_path = 'illuin/camembert-base-fquad'
+#model_path = 'illuin/camembert-base-fquad'
+model_path = 'etalab-ia/camembert-base-squadFR-fquad-piaf'
 tokenizer = CamembertTokenizer.from_pretrained(model_path)
 
 
 # chargéé la modele bert
 #model = BertForQuestionAnswering.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
 model = CamembertForQuestionAnswering.from_pretrained(model_path)
-
-
+model.eval()
+model.train()
+print(" tokanizer is ", tokenizer)
 # etape3
 class Q_R:
     def _init_(self):
@@ -28,16 +30,23 @@ class Q_R:
 
         # Definire tokenizer de bert
         # tokenizer = AutoTokenizer.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
-        model_path = 'illuin/camembert-base-fquad'
+        #model_path = 'illuin/camembert-base-fquad'  70% f1
+        model_path = 'etalab-ia/camembert-base-squadFR-fquad-piaf' # 93% f1
         tokenizer = CamembertTokenizer.from_pretrained(model_path)
 
         # chargéé la modele bert
         # model = BertForQuestionAnswering.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad')
         model = CamembertForQuestionAnswering.from_pretrained(model_path)
         model.eval()
+        model.train()
+
+        #return tokenizer
+
 
 
     def predict(self,context, query):
+        #inputs = tokenizer.encode_plus(query, context, return_tensors='pt')
+       # tokeniser= loadModel()
         inputs = tokenizer.encode_plus(query, context, return_tensors='pt')
         outputs = model(**inputs)
         answer_start = torch.argmax(outputs[0])  # get the most likely beginning of answer with the argmax of the score
