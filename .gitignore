@@ -129,3 +129,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea/
+!/API_KEY.json
+API_Context_q_r/camembert_q_r_init_2.py
