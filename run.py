@@ -4,7 +4,8 @@ from GPT3_Q_A.gpt3 import GPT3
 from Object_detection.detector__init__ import Detector
 # import main Flask class and request object
 from flask import Flask, request, jsonify
-
+import cv2
+from PIL import Image
 #import flaskrestful
 
 #from flask_restful import reqparse
@@ -142,8 +143,11 @@ detector.loadModel()
 def getdetect():
     # handle the POST request
     if request.method == 'POST':
-        images = request.files["images"]
+        #images = request.files["images"].read()
+        images = Image.open(request.files["images"])
+
         #images = request.files.getlist("images")
+        #response = detector.predictImage(images)
         response = detector.createdetectionBox(images)
 
         #response = q_r.predict(context,question)

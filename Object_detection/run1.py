@@ -14,4 +14,4 @@ detector.readClasses(classFile)
 detector.downloadModel(modelURL)
 detector.loadModel()
 
-detector.createdetectionBox(imagePath,threshould)
+print(detector.createdetectionBox(imagePath,threshould))

@@ -33,7 +33,7 @@ class Detector:
         self.modelName = fileName[:fileName.index('.')]
 
 
-        self.cacheDir = "./Object_detection/pretrained_models"#modified
+        self.cacheDir = "./pretrained_models"#modified Object_detection/
         os.makedirs(self.cacheDir,exist_ok=True)
 
         get_file(fname=fileName,origin=modelURL, cache_dir=self.cacheDir, cache_subdir="checkpoint", extract=True)
@@ -257,12 +257,12 @@ class Detector:
         # create list of responses for current image
         responses = []
         #
-        # img = cv2.imread(image)
+        #img = cv2.imread(image)
         # gray = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         #
-        # inputTensor = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2RGB)
-        # inputTensor = tf.convert_to_tensor(inputTensor, dtype=tf.uint8)
-        # inputTensor = inputTensor[tf.newaxis,...]
+        inputTensor = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2RGB)
+        inputTensor = tf.convert_to_tensor(inputTensor, dtype=tf.uint8)
+        inputTensor = inputTensor[tf.newaxis,...]
 
         detections = self.model(inputTensor)
 
