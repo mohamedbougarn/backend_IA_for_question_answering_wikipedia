@@ -123,40 +123,41 @@ def getgpt3_translate():
 #todo VISUAL PART DETECT
 # import methods
 
-
-classFile = "./Object_detection/coco.names"
-modelURL='http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz'
-modelname= "ssd_mobilenet_v2_320x320_coco17_tpu-8"
-cacheDir = "./Object_detection/pretrained_models"
-
-
-detector = Detector()
-detector.readClasses(classFile)
-detector.downloadModel(modelURL)
-detector.loadModel()
-#detector.loadModeldowloading(modelname,cacheDir)
+#
+# classFile = "./Object_detection/coco.names"
+# modelURL='http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz'
+# modelname= "ssd_mobilenet_v2_320x320_coco17_tpu-8"
+# cacheDir = "./Object_detection/pretrained_models"
+#
+#
+# detector = Detector()
+# detector.readClasses(classFile)
+# detector.downloadModel(modelURL)
+# detector.loadModel()
+# #detector.loadModeldowloading(modelname,cacheDir)
 
 
 
 #todo define : API that returns JSON with classes found in images
 @app.route('/detect', methods=['GET', 'POST'])
-def getdetect():
-    # handle the POST request
-    if request.method == 'POST':
-        #images = request.files["images"].read()
-        images = Image.open(request.files["images"])
-
-        #images = request.files.getlist("images")
-        #response = detector.predictImage(images)
-        response = detector.createdetectionBox(images)
-
-        #response = q_r.predict(context,question)
-        #score = q_r.compute_f1(response,answer)
-
-        try:
-            return jsonify({"response": response}), 200
-        except FileNotFoundError:
-            abort(404)
+# def getdetect():
+#     #
+#     # # handle the POST request
+#     # if request.method == 'POST':
+#     #     #images = request.files["images"].read()
+#     #     images = Image.open(request.files["images"])
+#     #
+#     #     #images = request.files.getlist("images")
+#     #     #response = detector.predictImage(images)
+#     #     response = detector.createdetectionBox(images)
+#     #
+#     #     #response = q_r.predict(context,question)
+#     #     #score = q_r.compute_f1(response,answer)
+#     #
+#     #     try:
+#     #         return jsonify({"response": response}), 200
+#     #     except FileNotFoundError:
+#     #         abort(404)
 
 
 

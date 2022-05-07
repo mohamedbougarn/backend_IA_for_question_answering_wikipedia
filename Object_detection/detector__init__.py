@@ -257,10 +257,10 @@ class Detector:
         # create list of responses for current image
         responses = []
         #
-        #img = cv2.imread(image)
+        img = cv2.imread(image)
         # gray = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         #
-        inputTensor = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2RGB)
+        inputTensor = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2RGB)
         inputTensor = tf.convert_to_tensor(inputTensor, dtype=tf.uint8)
         inputTensor = inputTensor[tf.newaxis,...]
 
