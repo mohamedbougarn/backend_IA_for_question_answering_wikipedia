@@ -1,5 +1,7 @@
 import wikipedia
 
+
+
 def question_answer(question):
     wikipedia.set_lang("fr")
     answer = wikipedia.summary(question)
