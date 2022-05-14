@@ -27,7 +27,6 @@ class GPT3:
 
         start_sequence = "\nA:"
         restart_sequence = "\n\nQ: "
-
         response = openai.Completion.create(
             engine="text-davinci-001",
             prompt=text,
