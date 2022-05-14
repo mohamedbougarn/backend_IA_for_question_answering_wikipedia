@@ -42,6 +42,37 @@ class Q_R:
 
         #return tokenizer
 
+    # def predictfor_wiki(self,context, query):
+    #     reader=DocumentReader(model_path)
+    #     reader.tokenize(query,context)
+    #     return answer
+
+
+    #todo define : loading model methode that
+    # return an answer for each chunk of a Wiki article, but not all of those answers are correct
+    def get_answer(self):
+        if self.chunked:
+            answer = ''
+            for k, chunk in self.inputs.items():
+                answer_start_scores, answer_end_scores = self.model(**chunk)
+
+                answer_start = torch.argmax(answer_start_scores)
+                answer_end = torch.argmax(answer_end_scores) + 1
+
+                ans = self.convert_ids_to_string(chunk['input_ids'][0][answer_start:answer_end])
+                if ans != '[CLS]':
+                    answer += ans + " / "
+            return answer
+        else:
+            answer_start_scores, answer_end_scores = self.model(**self.inputs)
+
+            answer_start = torch.argmax(
+                answer_start_scores)  # get the most likely beginning of answer with the argmax of the score
+            answer_end = torch.argmax(
+                answer_end_scores) + 1  # get the most likely end of answer with the argmax of the score
+
+            return self.convert_ids_to_string(self.inputs['input_ids'][0][
+                                              answer_start:answer_end])
 
 
     def predict(self,context, query):
