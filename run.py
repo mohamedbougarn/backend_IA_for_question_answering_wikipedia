@@ -1,6 +1,7 @@
 #importation les méthode dans la page test1
 from API_Context_q_r.camombert_q_r__init__ import Q_R
 from GPT3_Q_A.gpt3 import GPT3
+from WIKI_Q_A.wiki_q_a import Wiki_Q_R
 from Object_detection.detector__init__ import Detector
 # import main Flask class and request object
 from flask import Flask, request, jsonify
@@ -19,6 +20,11 @@ q_r.loadModel()
 gpt3 = GPT3()
 gpt3.connect()
 #gpt3.get_gpt3aq()
+
+
+#get wikipidia  q a
+wiki = Wiki_Q_R()
+
 
 
 # create the Flask app
@@ -68,6 +74,34 @@ def form_example1():
 
 
 
+#todo define : a root /translate/gpt3 with method post
+# that send a ansewer respence and get a question request in gpt3
+
+# allow both GET and POST requests
+@app.route('/wiki/question', methods=['GET', 'POST'])
+def getwikiq_a():
+    # handle the POST request
+    if request.method == 'POST':
+        #context = request.form.get('context')
+        question = request.form.get('question')
+        lang = request.form.get('lang')
+        text=wiki.question_answer1(question,lang)
+        response = q_r.predict(text,question)
+        #score = q_r.compute_f1(response,answer)
+
+
+        return jsonify({'question': question,
+                        'language': lang,
+                        'answer': response
+                        })
+    else:
+        return jsonify({'text': text,
+                        'language': lang,
+                        'answer': 0
+                        })
+
+
+
 #todo define : a root /get/gpt3 with method post
 # that send a ansewer respence and get a question request in gpt3
 
@@ -76,8 +110,11 @@ def form_example1():
 def getgpt3():
     # handle the POST request
     if request.method == 'POST':
+        data = request.json
         #context = request.form.get('context')
-        question = request.form.get('question')
+        # question = request.form.get('question')
+        # answer = gpt3.get_gpt3aq(question)
+        question = data['question']
         answer = gpt3.get_gpt3aq(question)
         #response = q_r.predict(context,question)
         #score = q_r.compute_f1(response,answer)
@@ -117,6 +154,11 @@ def getgpt3_translate():
                         'language': language,
                         'translated': 0
                         })
+
+
+
+
+
 
 
 
