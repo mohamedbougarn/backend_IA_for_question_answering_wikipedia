@@ -14,26 +14,26 @@ def question_answer1(question,lang):
     print(f"Question: {question}")
     results = wikipedia.search(question)
 
-    page = wikipedia.page(results[0])
+    page = wikipedia.page(results[0],auto_suggest=False)
     print(f"Top wiki result: {page}")
     text = page.content
     #reader.tokenize(question, text)  #
     #print(f"Answer: {reader.get_answer()}")
     print()
-
 #
 wikipedia.set_lang("ar")
 #answer = wikipedia.summary('la tunise démographie')
-answer = wikipedia.search('ما هي سلبيات الإنترنت')
+answer = wikipedia.search('qui elon musk')
+sumary = wikipedia.summary(answer[0],auto_suggest=False,sentences=8)
 page = wikipedia.page(answer[0],auto_suggest=False)
-print(f"Top wiki result: {page}")
-
+# print(f"Top wiki result: {page}")
+print(f"Top wiki paragraph: {sumary}")
 text = page.content
-print(text)
+# print(text)
 #reader.tokenize(question, text)
 #print(f"Answer: {reader.get_answer()}")
 
-print(answer)
+# print(answer)
 
 
 #
