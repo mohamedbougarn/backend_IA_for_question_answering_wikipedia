@@ -82,18 +82,26 @@ def form_example1():
 def getwikiq_a():
     # handle the POST request
     if request.method == 'POST':
+        data = request.json
         #context = request.form.get('context')
-        question = request.form.get('question')
-        lang = request.form.get('lang')
-        text=wiki.question_answer1(question,lang)
-        response = q_r.predict(text,question)
+        question = data['question']
+        lang = data['lang']
+        # question = request.form.get('question')
+        # lang = request.form.get('lang')
+        # text=wiki.question_answer1(question,lang)
+        try:
+            text=wiki.qeustion_answer_paragraph(question,lang)
+            response = q_r.predict(text,question)
         #score = q_r.compute_f1(response,answer)
 
 
-        return jsonify({'question': question,
-                        'language': lang,
-                        'answer': response
-                        })
+            return jsonify({'question': question,
+                            'language': lang,
+                            'answer': response
+                            })
+        except:
+            return "erreur"
+
     else:
         return jsonify({'text': text,
                         'language': lang,
