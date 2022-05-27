@@ -1,0 +1,7 @@
+torch
+wikipedia
+openai
+transformers
+Flask==2.0.2
+future==0.18.2
+googletrans==3.0.0
