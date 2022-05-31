@@ -114,6 +114,33 @@ def getwikiq_a():
 # that send a ansewer respence and get a question request in gpt3
 
 # allow both GET and POST requests
+# @app.route('/get/gpt3', methods=['GET', 'POST'])
+# def getgpt3():
+#     # handle the POST request
+#     if request.method == 'POST':
+#         data = request.json
+#         #context = request.form.get('context')
+#         # question = request.form.get('question')
+#         # answer = gpt3.get_gpt3aq(question)
+#         question = data['question']
+#         answer = gpt3.get_gpt3aq(question)
+#         #response = q_r.predict(context,question)
+#         #score = q_r.compute_f1(response,answer)
+#
+#         return jsonify({'message': question,
+#                         'response': answer
+#                         })
+#     else:
+#         return jsonify({'message_text': question,
+#                         'response': 0
+#                         })
+
+
+
+#todo define : a root /get/gpt3 with method post
+# that send a ansewer respence and get a question request in gpt3
+
+# allow both GET and POST requests
 @app.route('/get/gpt3', methods=['GET', 'POST'])
 def getgpt3():
     # handle the POST request
@@ -123,7 +150,11 @@ def getgpt3():
         # question = request.form.get('question')
         # answer = gpt3.get_gpt3aq(question)
         question = data['question']
-        answer = gpt3.get_gpt3aq(question)
+        lang = data['lang']
+        if lang == 'ar':
+            answer = gpt3.get_gpt3aq_with_translate(question,lang)
+        else:
+            answer = gpt3.get_gpt3aq(question)
         #response = q_r.predict(context,question)
         #score = q_r.compute_f1(response,answer)
 
