@@ -110,6 +110,58 @@ def getwikiq_a():
 
 
 
+#todo define : a root /translate/gpt3 with method post
+# that send a ansewer respence and get a question request in gpt3
+
+# allow both GET and POST requests
+@app.route('/wiki/question/translate', methods=['GET', 'POST'])
+def getwikiq_a1():
+    # handle the POST request
+    if request.method == 'POST':
+        data = request.json
+        #context = request.form.get('context')
+        question = data['question']
+        lang = data['lang']
+
+        # question = request.form.get('question')
+        # lang = request.form.get('lang')
+        # text=wiki.question_answer1(question,lang)
+        if lang != 'fr':
+            try:
+                questiontrad=wiki.tranlatequestion(question,lang)#traduire de n lang a l francais
+                text = wiki.qeustion_answer_paragraph1(questiontrad, lang)
+                response = q_r.predict(text, question)
+                response1 = wiki.tranlated(response,lang)
+                print('question traduire=',questiontrad)
+                return jsonify({'question': question,
+                                'language': lang,
+                                'answer': response1
+                                })
+
+            except:
+                return "erreur1"
+        else:
+            try:
+                text = wiki.qeustion_answer_paragraph(question, lang)
+                response = q_r.predict(text, question)
+
+                # score = q_r.compute_f1(response,answer)
+
+                return jsonify({'question': question,
+                                'language': lang,
+                                'answer': response
+                                })
+            except:
+                return "erreur2"
+
+    else:
+        return jsonify({'text': text,
+                        'language': lang,
+                        'answer': 0
+                        })
+
+
+
 #todo define : a root /get/gpt3 with method post
 # that send a ansewer respence and get a question request in gpt3
 
