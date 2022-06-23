@@ -2,7 +2,6 @@ import os
 import openai
 import json
 from deep_translator import MyMemoryTranslator,GoogleTranslator,LingueeTranslator,LibreTranslator
-
 from googletrans import Translator
 
 
@@ -43,7 +42,7 @@ class GPT3:
 
 
 
-    # todo define 2: method that use GPT3 for questin responce in CLASS named GPT3
+    # todo define 2: method that use GPT3 with translate couch for questin responce in CLASS named GPT3
     def get_gpt3aq_with_translate(self, text, lang):
     # openai.api_key = api
         #text1_1 = MyMemoryTranslator(source=lang, target="en").translate(text=text)
