@@ -131,3 +131,5 @@ dmypy.json
 .idea/
 !/API_KEY.json
 API_Context_q_r/camembert_q_r_init_2.py
+API_KEY.json
+Object_detection/4.jpg
