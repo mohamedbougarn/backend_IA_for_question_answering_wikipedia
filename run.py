@@ -130,9 +130,10 @@ def getwikiq_a1():
             try:
                 questiontrad=wiki.tranlatequestion(question,lang)#traduire de n lang a l francais
                 text = wiki.qeustion_answer_paragraph1(questiontrad, lang)
-                response = q_r.predict(text, question)
+                response = q_r.predict(text, questiontrad)
                 response1 = wiki.tranlated(response,lang)
                 print('question traduire=',questiontrad)
+                print('reponce nn traduire=',response)
                 return jsonify({'question': question,
                                 'language': lang,
                                 'answer': response1
@@ -203,7 +204,7 @@ def getgpt3():
         # answer = gpt3.get_gpt3aq(question)
         question = data['question']
         lang = data['lang']
-        if lang == 'ar':
+        if lang != 'en':
             answer = gpt3.get_gpt3aq_with_translate(question,lang)
         else:
             answer = gpt3.get_gpt3aq(question)
