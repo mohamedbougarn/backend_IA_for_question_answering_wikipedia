@@ -74,7 +74,7 @@ def form_example1():
 
 
 
-#todo define : a root /translate/gpt3 with method post
+#todo define : a root /translate/gpt3 with method postxcx
 # that send a ansewer respence and get a question request in gpt3
 
 # allow both GET and POST requests
